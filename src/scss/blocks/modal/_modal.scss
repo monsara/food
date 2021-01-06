@@ -8,6 +8,9 @@
     height: 100%;
     overflow: hidden;
     background-color: rgba(0,0,0,.5);
+    &.show {
+        display: block;
+    }
     &__dialog {
         max-width: 500px;
         margin: 40px auto;
