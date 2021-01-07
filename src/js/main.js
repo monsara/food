@@ -55,8 +55,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // Timer
+    const daysToFinish = 3;
+    let deadline;
+    // let deadline = '2021.05.11';
 
-    const deadline = '2021-05-11';
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    deadline = new Date(year, month, day);
+    deadline.setDate(deadline.getDate() + daysToFinish);
 
     setClock('.timer', deadline);
 
@@ -110,14 +119,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const modalTriger = document.querySelectorAll('[data-action="open-modal"]');
     const modal = document.querySelector('.modal');
     const modalCloseBtn = document.querySelector('[data-action="close-modal"]');
+    const modalTimerId = setTimeout(openModal, 3000);
 
     modalTriger.forEach(triger => {
-        triger.addEventListener('click', () => {
-            modal.classList.add('show');
-            modal.classList.remove('hide');
-            document.body.style.overflow = 'hidden';
-            document.addEventListener('keydown', handleKeyEscapePress);
-        });
+        triger.addEventListener('click', openModal);
     });
 
     modalCloseBtn.addEventListener('click', closeModal);
@@ -130,7 +135,27 @@ window.addEventListener('DOMContentLoaded', () => {
         closeModal();
     });
 
+    window.addEventListener('scroll', openModalByScroll);
+
     /* ---------------------------- Functions ------------------------------- */
+
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', handleKeyEscapePress);
+        clearTimeout(modalTimerId);
+    }
+
+    function openModalByScroll() {
+        if (
+            window.pageYOffset + document.documentElement.clientHeight ===
+            document.documentElement.scrollHeight
+        ) {
+            openModal();
+            removeEventListener('scroll', openModalByScroll);
+        }
+    }
 
     function closeModal() {
         modal.classList.add('hide');
