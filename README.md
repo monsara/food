@@ -65,4 +65,4 @@ npm install
 gulp
 ```
 
-- In the browser tab go to [http://localhost:1234](http://localhost:4000)
+- In the browser tab go to [http://localhost:4000](http://localhost:4000)
