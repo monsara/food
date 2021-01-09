@@ -180,8 +180,8 @@ window.addEventListener('DOMContentLoaded', () => {
             this.title = title;
             this.descr = descr;
             this.price = price;
-            this.classes = classes;
             this.parent = document.querySelector(parentSelector);
+            this.classes = classes;
             this.transfer = 27;
             this.changToUAH();
         }
@@ -252,7 +252,7 @@ window.addEventListener('DOMContentLoaded', () => {
     new MenuCard(
         'img/tabs/post.jpg',
         'elite',
-        'Меню “Пjcnyjt”',
+        'Меню “Постное”',
         `Меню “Постное” - это
         тщательный подбор ингредиентов: полное отсутствие
         продуктов животного происхождения, молоко из
@@ -264,4 +264,63 @@ window.addEventListener('DOMContentLoaded', () => {
         '.menu .container',
         'menu__item',
     ).render();
+
+    // Forms
+
+    const forms = document.forms;
+
+    const message = {
+        loading: 'Загрузка',
+        susses: 'Спасибо! Скоро мы с вами свяжемся',
+        failure: 'Что-то пошло не так...',
+    };
+
+    Array.from(forms).forEach(form => {
+        postData(form);
+    });
+
+    function postData(form) {
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            let statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader(
+                'Content-type',
+                'application/json; charset=utf-8',
+            );
+
+            const formData = new FormData(form);
+
+            const object = {};
+
+            formatDate.forEach((key, value) => {
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    statusMessage.textContent = message.susses;
+                    form.reset();
+
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+
+                    console.log(request.response);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+        });
+    }
 });
