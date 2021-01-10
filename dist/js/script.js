@@ -365,7 +365,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 <div class"modal__title">${message}</div>
             </div>
         `;
-    document.querySelector('.modal').append(thanksModal);
+    prevModalDialog.closest('.modal').append(thanksModal);
     setTimeout(() => {
       thanksModal.remove();
       prevModalDialog.classList.add('show');
@@ -373,6 +373,8 @@ window.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }, 4000);
   }
+
+  fetch('https://jsonplaceholder.typicode.com/todos/1').then(response => response.json()).then(json => console.log(json));
 });
 
 /***/ })

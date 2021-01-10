@@ -325,8 +325,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');
-
         prevModalDialog.classList.add('hide');
+
         openModal();
 
         const thanksModal = document.createElement('div');
@@ -337,8 +337,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 <div class"modal__title">${message}</div>
             </div>
         `;
+        prevModalDialog.closest('.modal').append(thanksModal);
 
-        document.querySelector('.modal').append(thanksModal);
         setTimeout(() => {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
@@ -346,4 +346,8 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json())
+        .then(json => console.log(json));
 });
