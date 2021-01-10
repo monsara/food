@@ -47,6 +47,10 @@ a {
   font-size: 36px;
   font-weight: 400; }
 
+.loading {
+  display: block;
+  margin: 0 auto; }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -489,6 +493,8 @@ a {
   .modal__dialog {
     max-width: 500px;
     margin: 40px auto; }
+    .modal__dialog.hide {
+      display: none; }
   .modal__content {
     position: relative;
     width: 100%;
@@ -504,7 +510,7 @@ a {
     right: 14px;
     font-size: 30px;
     color: #000;
-    opacity: .5;
+    opacity: 0.5;
     font-weight: 700;
     border: none;
     background-color: transparent;
@@ -518,7 +524,7 @@ a {
     margin: 20px auto 20px auto;
     width: 280px;
     height: 50px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     border: none;
     font-size: 18px;

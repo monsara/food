@@ -35,7 +35,7 @@ a {
         height: 50px;
     }
     &:hover {
-        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3); 
+        box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -48,10 +48,15 @@ a {
     width: 330px;
     height: 1px;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.5);;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .title {
     font-size: 36px;
     font-weight: 400;
+}
+
+.loading {
+    display: block;
+    margin: 0 auto;
 }
