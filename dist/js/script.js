@@ -327,7 +327,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function postData(form) {
     form.addEventListener('submit', event => {
-      event.preventDefault();
+      event.preventDefault(); // TODO: Write function renderStatusMessage for code below
+
       let statusMessage = document.createElement('img');
       statusMessage.classList.add('loading');
       statusMessage.src = message.loading;
@@ -344,7 +345,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(object)
-      }).then(data => {
+      }).then(data => data.text()).then(data => {
         console.log(data);
         showThanksModal(message.success);
         statusMessage.remove();
@@ -359,7 +360,8 @@ window.addEventListener('DOMContentLoaded', () => {
   function showThanksModal(message) {
     const prevModalDialog = document.querySelector('.modal__dialog');
     prevModalDialog.classList.add('hide');
-    openModal();
+    openModal(); // TODO: Write function renderThanksModal for code below
+
     const thanksModal = document.createElement('div');
     thanksModal.classList.add('modal__dialog');
     thanksModal.innerHTML = `
