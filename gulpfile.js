@@ -82,6 +82,7 @@ gulp.task('watch', () => {
 
     gulp.watch('./src/index.html', gulp.parallel('copy-html'));
     gulp.watch('./src/icons/**/*.*', gulp.parallel('copy-assets'));
+    gulp.watch('./src/server.php', gulp.parallel('copy-assets'));
     gulp.watch('./src/img/**/*.*', gulp.parallel('copy-assets'));
     gulp.watch('./src/scss/**/*.scss', gulp.parallel('build-sass'));
     gulp.watch('./src/js/**/*.js', gulp.parallel('build-js'));
