@@ -66,6 +66,7 @@ gulp.task('build-sass', () => {
 gulp.task('copy-assets', () => {
     gulp.src('./src/icons/**/*.*').pipe(gulp.dest(dist + '/icons'));
     gulp.src('./src/server.php').pipe(gulp.dest(dist));
+    gulp.src('./src/db.json').pipe(gulp.dest(dist));
 
     return gulp
         .src('./src/img/**/*.*')
@@ -83,6 +84,7 @@ gulp.task('watch', () => {
     gulp.watch('./src/index.html', gulp.parallel('copy-html'));
     gulp.watch('./src/icons/**/*.*', gulp.parallel('copy-assets'));
     gulp.watch('./src/server.php', gulp.parallel('copy-assets'));
+    gulp.watch('./src/db.json', gulp.parallel('copy-assets'));
     gulp.watch('./src/img/**/*.*', gulp.parallel('copy-assets'));
     gulp.watch('./src/scss/**/*.scss', gulp.parallel('build-sass'));
     gulp.watch('./src/js/**/*.js', gulp.parallel('build-js'));

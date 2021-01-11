@@ -28,7 +28,9 @@
     "webpack-cli": "^3.3.10",
     "webpack-stream": "^5.2.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "promise-polyfill": "8.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/monsara/food.git"
