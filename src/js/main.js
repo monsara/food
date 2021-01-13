@@ -376,49 +376,119 @@ window.addEventListener('DOMContentLoaded', () => {
     const next = document.querySelector('.offer__slider-next');
     const total = document.querySelector('#total');
     const current = document.querySelector('#current');
+    const slidesWrapper = document.querySelector('.offer__slider-wrapper');
+    const slidesField = document.querySelector('.offer__slider-inner');
+    const width = window.getComputedStyle(slidesWrapper).width;
 
     let slideIndex = 1;
-
-    showSlides(slideIndex);
+    let offset = 0;
 
     if (slides.length < 10) {
         total.textContent = `0${slides.length}`;
+        current.textContent = `0${slideIndex}`;
     } else {
         total.textContent = slides.length;
+        current.textContent = slideIndex;
     }
 
-    function showSlides(n) {
-        if (n > slides.length) {
+    slidesField.style.width = 100 * slides.length + '%';
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = '0.5s all';
+
+    slidesWrapper.style.overflow = 'hidden';
+
+    slides.forEach(slide => {
+        slide.style.width = width;
+    });
+
+    next.addEventListener('click', () => {
+        if (offset === parseInt(width) * (slides.length - 1)) {
+            offset = 0;
+            console.log(offset);
+        } else {
+            offset += parseInt(width);
+            console.log(offset);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex === slides.length) {
             slideIndex = 1;
+        } else {
+            slideIndex += 1;
         }
-        if (n < 1) {
-            slideIndex = slides.length;
-        }
-
-        slides.forEach(slide => {
-            slide.classList.add('hide');
-            slide.classList.remove('show');
-        });
-
-        slides[slideIndex - 1].classList.add('show');
-        slides[slideIndex - 1].classList.remove('hide');
 
         if (slides.length < 10) {
             current.textContent = `0${slideIndex}`;
         } else {
             current.textContent = slideIndex;
         }
-    }
-
-    function plusSlides(n) {
-        showSlides((slideIndex += n));
-    }
-
-    prev.addEventListener('click', function () {
-        plusSlides(-1);
     });
 
-    next.addEventListener('click', function () {
-        plusSlides(1);
+    prev.addEventListener('click', () => {
+        if (offset === 0) {
+            offset = parseInt(width) * (slides.length - 1);
+            console.log(offset);
+        } else {
+            offset -= parseInt(width);
+            console.log(offset);
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
+
+        if (slideIndex === 1) {
+            slideIndex = slides.length;
+        } else {
+            slideIndex -= 1;
+        }
+
+        if (slides.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
     });
+
+    // showSlides(slideIndex);
+
+    // if (slides.length < 10) {
+    //     total.textContent = `0${slides.length}`;
+    // } else {
+    //     total.textContent = slides.length;
+    // }
+
+    // function showSlides(n) {
+    //     if (n > slides.length) {
+    //         slideIndex = 1;
+    //     }
+    //     if (n < 1) {
+    //         slideIndex = slides.length;
+    //     }
+
+    //     slides.forEach(slide => {
+    //         slide.classList.add('hide');
+    //         slide.classList.remove('show');
+    //     });
+
+    //     slides[slideIndex - 1].classList.add('show');
+    //     slides[slideIndex - 1].classList.remove('hide');
+
+    //     if (slides.length < 10) {
+    //         current.textContent = `0${slideIndex}`;
+    //     } else {
+    //         current.textContent = slideIndex;
+    //     }
+    // }
+
+    // function plusSlides(n) {
+    //     showSlides((slideIndex += n));
+    // }
+
+    // prev.addEventListener('click', function () {
+    //     plusSlides(-1);
+    // });
+
+    // next.addEventListener('click', function () {
+    //     plusSlides(1);
+    // });
 });
