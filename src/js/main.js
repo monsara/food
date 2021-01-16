@@ -1,5 +1,7 @@
 'use strict';
 
+import 'core-js';
+
 const { data } = require('autoprefixer');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -330,18 +332,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
+            // console.log('line 335:', json);
+            console.log('line 336:', JSON.stringify(object));
+
             postData('http://localhost:3000/requests', JSON.stringify(object))
+                // postData('http://localhost:3000/requests', JSON.stringify(json))
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     showThanksModal(message.success);
                     statusMessage.remove();
                 })
                 .catch(() => {
                     showThanksModal(message.failure);
+                })
+                .finally(() => {
+                    form.reset();
                 });
-            // .finally(() => {
-            //     form.reset();
-            // });
         });
     }
 
@@ -451,10 +457,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if (offset === 0) {
-            offset = parseInt(width) * (slides.length - 1);
+            offset = Number(width.replace(/\D/g, '')) * (slides.length - 1);
             console.log(offset);
         } else {
-            offset -= parseInt(width);
+            offset -= Number(width.replace(/\D/g, ''));
             console.log(offset);
         }
 
@@ -481,7 +487,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const slideTo = e.target.dataset.slideTo;
 
             slideIndex = slideTo;
-            offset = parseInt(width) * (slideTo - 1);
+            offset = Number(width.replace(/\D/g, '')) * (slideTo - 1);
 
             slidesField.style.transform = `translateX(-${offset}px)`;
 
